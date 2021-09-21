@@ -13,6 +13,7 @@ from multiprocessing import *
 import winsound
 
 
+
 class App(QWidget):
     
     def __init__(self):
@@ -120,7 +121,7 @@ class App(QWidget):
         self.hour_input.setText(str(alarm_time_hour))
         self.min_input.setText(str(alarm_time_min))
         self.sec_input.setText(str(alarm_time_sec))
-        print(self.hour_input.text(),self.min_input.text(),self.sec_input.text())
+        print('remaining',self.hour_input.text(),self.min_input.text(),self.sec_input.text())
         sleep(1)
 
     def settingUp(self):
@@ -142,7 +143,7 @@ class App(QWidget):
                  
 
                 while True:
-                    print('Alarm set',first_alarm_time)
+                    print('Alarm set to',first_alarm_time)
                     proc = multiprocessing.Process(target=self.timer(first_alarm_time))
                     proc.start()
                     if((self.hour_input.text() == str(0)) and (self.min_input.text() == str(0)) and (self.sec_input.text() == str(0))):
@@ -167,4 +168,5 @@ class App(QWidget):
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     ex = App()
+    multiprocessing.freeze_support() #Pyinstaller fix
     sys.exit(app.exec_())
